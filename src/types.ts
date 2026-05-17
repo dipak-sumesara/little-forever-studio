@@ -1,3 +1,5 @@
+import { ButtonHTMLAttributes, ReactNode } from "react";
+
 export type Route = 'home' | 'booking' | 'products';
 
 export interface NavItem {
@@ -47,4 +49,60 @@ export interface ContactFormState {
   city: string;
   babyAge: string;
   message: string;
+}
+
+
+
+
+export type Navigate = (nextRoute: Route) => void;
+
+export type ButtonVariant = 'primary' | 'soft' | 'ghost';
+
+
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    children: ReactNode;
+    variant?: ButtonVariant;
+}
+
+export interface SectionShellProps {
+    id: string;
+    eyebrow?: string;
+    title?: string;
+    copy?: string;
+    children: ReactNode;
+    className?: string;
+}
+
+export interface RouteProps {
+    navigate: Navigate;
+}
+
+export interface NavbarProps extends RouteProps {
+    route: Route;
+}
+
+export interface DatePickerProps {
+    selectedDate: string;
+    setSelectedDate: (date: string) => void;
+}
+
+export interface FormInputProps {
+    label: string;
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    required?: boolean;
+}
+
+export interface FramePreviewStyle {
+    shell: string;
+    mat: string;
+    accent: string;
+    line: string;
+}
+
+export interface ImpressionPreview {
+    label: string;
+    description: string;
+    marks: string[];
 }

@@ -5,16 +5,28 @@ import type { Variants } from 'framer-motion';
 import { galleryItems, productCards, slots, timelineSteps } from './data';
 import type {
   BookingsByDate,
+  ButtonProps,
+  ButtonVariant,
   ContactFormState,
+  DatePickerProps,
+  FormInputProps,
+  FramePreviewStyle,
   FrameStyle,
+  ImpressionPreview,
   ImpressionType,
+  NavbarProps,
+  Navigate,
   NavItem,
   Route,
+  RouteProps,
+  SectionShellProps,
   SlotId
 } from './types';
 import { addDays, classNames, formatDisplayDate, getMonthDays, toISODate } from './utils';
 
 import BookingModal from './components/booking/BookingModal';
+
+
 
 const navItems: NavItem[] = [
   { label: 'Memories', route: 'home' },
@@ -49,57 +61,6 @@ const heroTextItem: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: 'easeOut' } }
 };
 
-type Navigate = (nextRoute: Route) => void;
-
-type ButtonVariant = 'primary' | 'soft' | 'ghost';
-
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  variant?: ButtonVariant;
-}
-
-interface SectionShellProps {
-  id: string;
-  eyebrow?: string;
-  title?: string;
-  copy?: string;
-  children: ReactNode;
-  className?: string;
-}
-
-interface RouteProps {
-  navigate: Navigate;
-}
-
-interface NavbarProps extends RouteProps {
-  route: Route;
-}
-
-interface DatePickerProps {
-  selectedDate: string;
-  setSelectedDate: (date: string) => void;
-}
-
-interface FormInputProps {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  required?: boolean;
-}
-
-interface FramePreviewStyle {
-  shell: string;
-  mat: string;
-  accent: string;
-  line: string;
-}
-
-interface ImpressionPreview {
-  label: string;
-  description: string;
-  marks: string[];
-}
 
 const impressionOptions: ImpressionType[] = ['hands', 'feet', 'both'];
 
