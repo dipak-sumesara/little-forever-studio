@@ -14,6 +14,8 @@ import type {
 } from './types';
 import { addDays, classNames, formatDisplayDate, getMonthDays, toISODate } from './utils';
 
+import BookingModal from './components/booking/BookingModal';
+
 const navItems: NavItem[] = [
   { label: 'Memories', route: 'home' },
   { label: 'Book Appointment', route: 'booking' },
@@ -240,7 +242,7 @@ function Button({ children, className, variant = 'primary', ...props }: ButtonPr
     primary:
       'bg-ink text-cream shadow-soft hover:-translate-y-0.5 hover:bg-cocoa focus-visible:outline-ink',
     soft:
-      'bg-white/75 text-ink shadow-glow ring-1 ring-white/70 hover:-translate-y-0.5 hover:bg-white focus-visible:outline-blush',
+      'bg-white/75 text-ink premium-shadow ring-1 ring-white/70 hover:-translate-y-0.5 hover:bg-white focus-visible:outline-blush',
     ghost:
       'bg-transparent text-cocoa ring-1 ring-cocoa/15 hover:bg-white/70 focus-visible:outline-cocoa'
   };
@@ -345,7 +347,7 @@ function Navbar({ route, navigate }: NavbarProps) {
           onClick={() => go('home')}
           className="group flex items-center gap-3 rounded-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blush"
         >
-          <span className="grid h-11 w-11 place-items-center rounded-full bg-petal text-lg text-cocoa shadow-glow transition group-hover:scale-105">
+          <span className="grid h-11 w-11 place-items-center rounded-full bg-petal text-lg text-cocoa premium-shadow transition group-hover:scale-105">
             ♥
           </span>
           <span>
@@ -424,7 +426,7 @@ function Hero({ navigate }: RouteProps) {
   };
 
   return (
-    <section className="relative min-h-[88vh] overflow-hidden bg-memory-glow px-5 py-12 sm:px-8 lg:px-12">
+    <section className="relative min-h-[88vh] overflow-hidden bg-[#fff8f2] px-5 py-12 sm:px-8 lg:px-12">
       <div
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,248,237,0.72)_0%,rgba(252,232,238,0.38)_42%,rgba(233,247,255,0.5)_100%)]"
         aria-hidden="true"
@@ -433,7 +435,7 @@ function Hero({ navigate }: RouteProps) {
         className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-cream/65 via-cream/10 to-transparent"
         aria-hidden="true"
       />
-      <FloatingShapes />
+
       <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
         <motion.div
           className="pt-10 sm:pt-16 lg:pt-20"
@@ -442,7 +444,7 @@ function Hero({ navigate }: RouteProps) {
           animate="show"
         >
           <motion.span
-            className="inline-flex rounded-full bg-white/65 px-4 py-2 font-body text-xs font-semibold uppercase text-cocoa shadow-glow ring-1 ring-white/80"
+            className="inline-flex rounded-full bg-white/65 px-4 py-2 font-body text-xs font-semibold uppercase text-cocoa premium-shadow ring-1 ring-white/80"
             variants={heroTextItem}
           >
             Baby impressions and memory frames
@@ -460,7 +462,7 @@ function Hero({ navigate }: RouteProps) {
             We preserve your baby's tiniest details into timeless 3D keepsakes.
           </motion.p>
           <motion.div className="mt-8 flex flex-col gap-3 sm:flex-row" variants={heroTextItem}>
-            <Button onClick={scrollToPreview} className="shadow-glow sm:px-8">
+            <Button onClick={scrollToPreview} className="premium-shadow sm:px-8">
               Create Your Memory
             </Button>
             <Button variant="soft" onClick={() => navigate('booking')} className="sm:px-8">
@@ -477,18 +479,18 @@ function Hero({ navigate }: RouteProps) {
         >
           <div className="absolute -left-4 top-12 h-32 w-32 rounded-full bg-blush/35 blur-3xl" />
           <div className="absolute -right-2 bottom-8 h-40 w-40 rounded-full bg-babyblue/40 blur-3xl" />
-          <div className="relative mx-auto max-w-md rounded-[2.5rem] bg-gradient-to-br from-white/80 via-petal/30 to-mistblue/45 p-3 shadow-depth ring-1 ring-white/80 sm:max-w-lg">
-            <div className="overflow-hidden rounded-[2rem] shadow-glow">
+          <div className="relative mx-auto max-w-md rounded-[2.5rem] bg-gradient-to-br from-white/80 via-petal/30 to-mistblue/45 p-3 premium-shadow ring-1 ring-white/80 sm:max-w-lg">
+            <div className="overflow-hidden rounded-[2rem] premium-shadow">
               <motion.img
                 src="https://images.unsplash.com/photo-1546015720-b8b30df5aa27?auto=format&fit=crop&w=1000&q=90"
                 alt="Newborn baby memory moment"
                 className="h-[460px] w-full object-cover sm:h-[560px]"
-                animate={{ scale: [1.02, 1.08, 1.02] }}
-                transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.4 }}
               />
             </div>
             <motion.div
-              className="absolute -bottom-4 left-5 right-5 rounded-[1.7rem] bg-cream/90 p-4 shadow-petal backdrop-blur"
+              className="absolute -bottom-4 left-5 right-5 rounded-[1.7rem] bg-cream/90 p-4 premium-shadow backdrop-blur"
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             >
@@ -526,15 +528,15 @@ function GallerySection() {
           <motion.article
             key={item.title}
             className={classNames(
-              'group overflow-hidden rounded-[2rem] bg-gradient-to-br from-white via-petal/25 to-mistblue/30 p-[1px] shadow-depth ring-1 ring-white/80',
+              'group overflow-hidden rounded-[2rem] bg-white p-[1px] premium-shadow ring-1 ring-white/80',
               galleryDepthOffsets[index % galleryDepthOffsets.length]
             )}
             variants={fadeIn}
             whileHover={{ y: -8 }}
             transition={{ type: 'spring', stiffness: 220, damping: 22 }}
           >
-            <div className="rounded-[1.95rem] bg-white/88 p-3 soft-grain">
-              <div className="overflow-hidden rounded-[1.55rem] shadow-mist">
+            <div className="rounded-[1.95rem] bg-white/88 p-3">
+              <div className="overflow-hidden rounded-[1.55rem] premium-shadow">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -580,17 +582,17 @@ function HowItWorks() {
             <motion.article
               key={step.title}
               className={classNames(
-                'group relative grid min-h-[42vh] grid-cols-[4rem_1fr] content-center gap-4 rounded-[2rem] bg-white/78 p-5 shadow-depth ring-1 ring-white/90 backdrop-blur transition-shadow duration-300 hover:shadow-glow sm:min-h-[46vh] md:grid-cols-[5rem_1fr] md:p-7',
+                'group relative grid min-h-[42vh] grid-cols-[4rem_1fr] content-center gap-4 rounded-[2rem] soft-card p-5 premium-shadow ring-1 ring-white/90 backdrop-blur transition-shadow duration-300 hover:premium-shadow sm:min-h-[46vh] md:grid-cols-[5rem_1fr] md:p-7',
                 index % 2 === 0 ? 'md:mr-6' : 'md:ml-6'
               )}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, amount: 0.55, margin: '0px 0px -12% 0px' }}
               variants={journeyStep}
-              whileHover={{ y: -6, scale: 1.01 }}
+              whileHover={{ y: -4 }}
               transition={{ type: 'spring', stiffness: 230, damping: 24 }}
             >
-              <div className="relative z-10 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-blush to-babyblue font-display text-2xl text-ink shadow-glow ring-8 ring-white/75 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative z-10 grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-blush to-babyblue font-display text-2xl text-ink premium-shadow ring-8 ring-white/75 transition-transform duration-300 group-hover:scale-105">
                 {step.icon}
               </div>
               <div className="pt-0.5">
@@ -645,7 +647,7 @@ function CustomizationPreview({ navigate }: RouteProps) {
       className="bg-cream organic-texture"
     >
       <motion.div
-        className="grid gap-6 rounded-[2.25rem] bg-gradient-to-br from-white/88 via-petal/15 to-mistblue/20 p-4 shadow-depth ring-1 ring-white/85 sm:p-6 lg:grid-cols-[0.95fr_1.05fr] lg:p-8"
+        className="grid gap-6 rounded-[2.25rem] bg-gradient-to-br from-white/88 via-petal/15 to-mistblue/20 p-4 premium-shadow ring-1 ring-white/85 sm:p-6 lg:grid-cols-[0.95fr_1.05fr] lg:p-8"
         variants={fadeIn}
         initial="hidden"
         whileInView="show"
@@ -653,14 +655,14 @@ function CustomizationPreview({ navigate }: RouteProps) {
       >
         <motion.div
           className={classNames(
-            'rounded-[1.75rem] bg-gradient-to-br p-5 shadow-petal transition-colors duration-500 sm:p-6 lg:-mt-3',
+            'rounded-[1.75rem] bg-gradient-to-br p-5 premium-shadow transition-colors duration-500 sm:p-6 lg:-mt-3',
             framePreview.shell
           )}
           animate={{ scale: [1, 1.012, 1] }}
           transition={{ duration: 0.45, ease: 'easeOut' }}
         >
           <motion.div
-            className="aspect-[4/5] rounded-[1.4rem] bg-white/72 p-4 shadow-depth transition-shadow duration-500"
+            className="aspect-[4/5] rounded-[1.4rem] bg-white/72 p-4 premium-shadow transition-shadow duration-500"
             whileHover={{ y: -4, scale: 1.01 }}
             transition={{ type: 'spring', stiffness: 220, damping: 22 }}
           >
@@ -770,7 +772,7 @@ function CustomizationPreview({ navigate }: RouteProps) {
               </motion.div>
               <motion.span
                 key={members}
-                className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-petal font-body font-semibold text-ink shadow-glow"
+                className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-petal font-body font-semibold text-ink premium-shadow"
                 initial={{ scale: 0.82, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 18 }}
@@ -797,7 +799,7 @@ function CustomizationPreview({ navigate }: RouteProps) {
                     'rounded-full px-3 py-3 text-sm font-semibold capitalize transition-colors',
                     impression === type
                       ? 'bg-ink text-cream shadow-soft ring-4 ring-blush/20'
-                      : 'text-cocoa hover:bg-white hover:shadow-glow'
+                      : 'text-cocoa hover:bg-white hover:premium-shadow'
                   )}
                 >
                   {type}
@@ -814,7 +816,7 @@ function CustomizationPreview({ navigate }: RouteProps) {
               <select
                 value={frame}
                 onChange={handleFrameChange}
-                className="mt-3 w-full cursor-pointer rounded-3xl border border-linen bg-cream px-5 py-4 text-ink outline-none transition hover:border-blush hover:shadow-glow focus:border-blush focus:ring-4 focus:ring-blush/20"
+                className="mt-3 w-full cursor-pointer rounded-3xl border border-linen bg-cream px-5 py-4 text-ink outline-none transition hover:border-blush hover:premium-shadow focus:border-blush focus:ring-4 focus:ring-blush/20"
               >
                 {frameOptions.map((option) => (
                   <option key={option}>{option}</option>
@@ -830,12 +832,12 @@ function CustomizationPreview({ navigate }: RouteProps) {
             <input
               value={customText}
               onChange={(event) => setCustomText(event.target.value)}
-              className="mt-3 w-full rounded-3xl border border-linen bg-cream px-5 py-4 text-ink outline-none transition hover:border-blush hover:shadow-glow placeholder:text-cocoa/40 focus:border-blush focus:ring-4 focus:ring-blush/20"
+              className="mt-3 w-full rounded-3xl border border-linen bg-cream px-5 py-4 text-ink outline-none transition hover:border-blush hover:premium-shadow placeholder:text-cocoa/40 focus:border-blush focus:ring-4 focus:ring-blush/20"
               placeholder="Baby name, date, or family note"
             />
           </label>
 
-          <div className="flex flex-col gap-4 rounded-[1.6rem] bg-gradient-to-br from-ink via-cocoa to-beige/80 p-5 text-cream shadow-depth ring-1 ring-white/15 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-[1.6rem] bg-gradient-to-br from-ink via-cocoa to-beige/80 p-5 text-cream premium-shadow ring-1 ring-white/15 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-body text-sm font-medium uppercase text-cream/65">
                 Estimated price
@@ -886,7 +888,7 @@ function ContactForm() {
     >
       <motion.form
         onSubmit={submit}
-        className="mx-auto grid max-w-4xl gap-4 rounded-[2.25rem] bg-gradient-to-br from-white/88 via-cream/80 to-mistblue/25 p-5 shadow-depth ring-1 ring-white sm:grid-cols-2 sm:p-7"
+        className="mx-auto grid max-w-4xl gap-4 rounded-[2.25rem] bg-gradient-to-br from-white/88 via-cream/80 to-mistblue/25 p-5 premium-shadow ring-1 ring-white sm:grid-cols-2 sm:p-7"
         variants={fadeIn}
         initial="hidden"
         whileInView="show"
@@ -979,7 +981,7 @@ function DatePicker({ selectedDate, setSelectedDate }: DatePickerProps) {
   const weekdays: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
   return (
-    <div className="rounded-[2rem] bg-gradient-to-br from-white/88 via-cream/80 to-petal/20 p-4 shadow-depth ring-1 ring-white sm:p-6">
+    <div className="rounded-[2rem] bg-gradient-to-br from-white/88 via-cream/80 to-petal/20 p-4 premium-shadow ring-1 ring-white sm:p-6">
       <div className="mb-5 flex items-center justify-between gap-3">
         <button
           onClick={() =>
@@ -1065,6 +1067,8 @@ function BookingPage() {
   const [success, setSuccess] = useState<boolean>(false);
   const [notice, setNotice] = useState<string>('');
 
+  const [showModal, setShowModal] = useState(false);
+
   const bookedForDate = bookings[selectedDate] || [];
   const selectedSlotLabel = selectedSlot
     ? slots.find((slot) => slot.id === selectedSlot)?.label ?? ''
@@ -1101,7 +1105,7 @@ function BookingPage() {
 
   return (
     <main className="min-h-screen bg-memory-glow organic-texture px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
-      <FloatingShapes />
+
       <div className="relative z-10 mx-auto max-w-7xl">
         <motion.div
           className="mb-10 max-w-3xl"
@@ -1109,7 +1113,7 @@ function BookingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-flex rounded-full bg-white/65 px-4 py-2 font-body text-xs font-semibold uppercase text-cocoa shadow-glow ring-1 ring-white/80">
+          <span className="inline-flex rounded-full bg-white/65 px-4 py-2 font-body text-xs font-semibold uppercase text-cocoa premium-shadow ring-1 ring-white/80">
             Appointment
           </span>
           <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.12] text-ink sm:text-5xl lg:text-6xl">
@@ -1125,12 +1129,12 @@ function BookingPage() {
           {success ? (
             <motion.section
               key="success"
-              className="mx-auto max-w-3xl rounded-[2.5rem] bg-gradient-to-br from-white/90 via-cream/85 to-petal/30 p-8 text-center shadow-depth ring-1 ring-white sm:p-12"
+              className="mx-auto max-w-3xl rounded-[2.5rem] bg-gradient-to-br from-white/90 via-cream/85 to-petal/30 p-8 text-center premium-shadow ring-1 ring-white sm:p-12"
               initial={{ opacity: 0, scale: 0.96, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 20 }}
             >
-              <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-petal text-4xl text-cocoa shadow-glow">
+              <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-petal text-4xl text-cocoa premium-shadow">
                 ♥
               </div>
               <h2 className="mt-6 font-display text-4xl font-semibold leading-[1.16] text-ink">
@@ -1168,7 +1172,7 @@ function BookingPage() {
               <DatePicker selectedDate={selectedDate} setSelectedDate={handleDateChange} />
 
               <div className="space-y-6">
-                <div className="rounded-[2rem] bg-gradient-to-br from-white/88 via-cream/80 to-mistblue/25 p-4 shadow-depth ring-1 ring-white sm:p-6">
+                <div className="rounded-[2rem] bg-gradient-to-br from-white/88 via-cream/80 to-mistblue/25 p-4 premium-shadow ring-1 ring-white sm:p-6">
                   <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                       <p className="font-body text-xs font-semibold uppercase text-cocoa/55">
@@ -1201,12 +1205,12 @@ function BookingPage() {
                           className={classNames(
                             'rounded-[1.3rem] border p-4 text-left transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blush',
                             selected &&
-                              'border-blush/70 bg-gradient-to-br from-ink to-cocoa text-cream shadow-[0_24px_70px_rgba(111,81,66,0.28)] ring-4 ring-blush/30',
+                            'border-blush/70 bg-gradient-to-br from-ink to-cocoa text-cream shadow-[0_24px_70px_rgba(111,81,66,0.28)] ring-4 ring-blush/30',
                             !selected &&
-                              !booked &&
-                              'border-linen bg-cream text-cocoa shadow-sm hover:border-blush hover:bg-white hover:shadow-glow',
+                            !booked &&
+                            'border-linen bg-cream text-cocoa shadow-sm hover:border-blush hover:bg-white hover:premium-shadow',
                             booked &&
-                              'cursor-not-allowed border-cocoa/5 bg-linen/55 text-cocoa/30 opacity-35 grayscale'
+                            'cursor-not-allowed border-cocoa/5 bg-linen/55 text-cocoa/30 opacity-35 grayscale'
                           )}
                         >
                           <span className="block font-body text-lg font-semibold">
@@ -1218,7 +1222,7 @@ function BookingPage() {
                           <span
                             className={classNames(
                               'mt-3 inline-flex rounded-full px-3 py-1 font-body text-xs font-semibold uppercase',
-                              selected && 'bg-cream/95 text-ink shadow-glow',
+                              selected && 'bg-cream/95 text-ink premium-shadow',
                               !selected && !booked && 'bg-white/65 text-cocoa',
                               booked && 'bg-cocoa/10 text-cocoa/70'
                             )}
@@ -1231,7 +1235,7 @@ function BookingPage() {
                   </div>
                 </div>
 
-                <div className="rounded-[2rem] bg-gradient-to-br from-ink via-cocoa to-beige/80 p-5 text-cream shadow-depth ring-1 ring-white/15 sm:p-6 lg:-mt-2 lg:ml-4">
+                <div className="rounded-[2rem] bg-gradient-to-br from-ink via-cocoa to-beige/80 p-5 text-cream premium-shadow ring-1 ring-white/15 sm:p-6 lg:-mt-2 lg:ml-4">
                   <p className="font-body text-xs font-semibold uppercase text-cream/60">
                     Summary
                   </p>
@@ -1250,11 +1254,10 @@ function BookingPage() {
                   </div>
                   <Button
                     variant="soft"
-                    disabled={!canConfirmBooking || isPaying}
-                    onClick={confirmBooking}
-                    className={classNames('mt-6 bg-cream', !canConfirmBooking && 'shadow-none')}
+                    disabled={!canConfirmBooking}
+                    onClick={() => setShowModal(true)}
                   >
-                    {isPaying ? 'Confirming...' : 'Confirm & Pay ₹500'}
+                    Continue Booking
                   </Button>
                 </div>
               </div>
@@ -1262,6 +1265,17 @@ function BookingPage() {
           )}
         </AnimatePresence>
       </div>
+      <BookingModal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        selectedDate={formatDisplayDate(selectedDate)}
+        selectedSlot={selectedSlotLabel}
+        onConfirm={() => {
+          confirmBooking();
+          setShowModal(false);
+        }}
+        isPaying={isPaying}
+      />
     </main>
   );
 }
@@ -1278,7 +1292,7 @@ function ProductsPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-flex rounded-full bg-white/70 px-4 py-2 font-body text-xs font-semibold uppercase text-cocoa shadow-glow ring-1 ring-white">
+          <span className="inline-flex rounded-full bg-white/70 px-4 py-2 font-body text-xs font-semibold uppercase text-cocoa premium-shadow ring-1 ring-white">
             Coming Soon
           </span>
           <h1 className="mt-5 font-display text-4xl font-semibold leading-[1.12] text-ink sm:text-5xl lg:text-6xl">
@@ -1297,7 +1311,7 @@ function ProductsPage() {
           <AnimatePresence>
             {notice && (
               <motion.p
-                className="mx-auto mt-4 inline-flex rounded-full bg-white/80 px-4 py-2 font-body text-sm font-medium text-cocoa shadow-glow"
+                className="mx-auto mt-4 inline-flex rounded-full bg-white/80 px-4 py-2 font-body text-sm font-medium text-cocoa premium-shadow"
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
@@ -1318,7 +1332,7 @@ function ProductsPage() {
             <motion.article
               key={product.title}
               className={classNames(
-                'group overflow-hidden rounded-[2rem] bg-gradient-to-br from-white via-petal/25 to-mistblue/30 p-[1px] shadow-depth ring-1 ring-white/85',
+                'group overflow-hidden rounded-[2rem] bg-gradient-to-br from-white via-petal/25 to-mistblue/30 p-[1px] premium-shadow ring-1 ring-white/85',
                 productDepthOffsets[index % productDepthOffsets.length]
               )}
               variants={fadeIn}
@@ -1326,7 +1340,7 @@ function ProductsPage() {
               transition={{ type: 'spring', stiffness: 220, damping: 22 }}
             >
               <div className="rounded-[1.95rem] bg-white/88 p-3 soft-grain">
-                <div className="relative overflow-hidden rounded-[1.5rem] shadow-mist">
+                <div className="relative overflow-hidden rounded-[1.5rem] premium-shadow">
                   <img
                     src={product.image}
                     alt={product.title}
